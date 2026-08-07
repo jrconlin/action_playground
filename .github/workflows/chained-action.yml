@@ -1,11 +1,14 @@
 # Example of a chained workflow. (Only complete the following if the prior succeeded)
+# See `workflow_run` for important note: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run
+
 name: Chained Workflow
 
 run-name: Following up.
 
 on:
   workflow_run:
-    workflows: ['Github Actions Demo']
+    workflows:
+      - 'Github Actions Demo'
     types:
       - completed
 
@@ -19,6 +22,6 @@ jobs:
         run: |
           echo "Yay! Party!"
       - name: Sad time!
-        if: ${{ github.event.workflow_run.conclusion != 'success' }}
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
         run: |
           echo "Be sad now."
