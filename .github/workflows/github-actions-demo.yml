@@ -1,10 +1,22 @@
+# Since each "action" responds to a single condition, best to divide these into discrete On: Do: files.
+
+# Menu name of the action
 name: GitHub Actions Demo
+
+# What's displayed in the output log for this job.
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+
+# When to trigger this see https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
+on:
+  push:
+    # Push takes a conditional (not everything does) No condition means On all matching actions.
+    branches:
+      - 'main'
+      - 'demo'
+
+# All the things that need to be done
 jobs:
   Explore-GitHub-Actions:
-    # if: ${{ startsWith(github.event_name, 'push') }}
-    if: ${{ github.event_name == 'push' && github.ref_name == 'demo' }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event on ${{ github.ref_name }}."
