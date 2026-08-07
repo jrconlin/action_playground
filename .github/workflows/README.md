@@ -13,3 +13,5 @@ There are some "cookbook" style workflows, but in essence (and because I forget)
 - Each script can have one or more `jobs`, which may have one or more `steps`
 
 - each `job` and `step` may have their own conditionals which can act on the payload content to determine if the job or step gets executed.
+
+- there's no concept of `@latest` or `@stable`, so you have to [dig around](https://github.com/actions) to find the latest version of a given action.
