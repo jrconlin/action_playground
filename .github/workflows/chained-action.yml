@@ -3,8 +3,6 @@
 
 name: Chained Workflow
 
-# Note: This may not run on the initial branch. Chains appear to work on the main branch only.
-
 run-name: Following up.
 
 on:
