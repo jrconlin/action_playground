@@ -1,7 +1,8 @@
+import sys
+from io import StringIO
+
 from fibmeowicci import meow
 
-from io import StringIO
-import sys
 
 def test_meow():
     captured = StringIO()
@@ -9,4 +10,4 @@ def test_meow():
     sys.stdout = captured
     meow(limit=5)
     sys.stdout = prev
-    assert '\nmeow\nmeow\nmeow meow\nmeow meow meow\n' == captured.getvalue()
+    assert "\nmeow\nmeow\nmeow meow\nmeow meow meow\n" == captured.getvalue()
