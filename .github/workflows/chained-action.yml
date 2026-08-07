@@ -1,7 +1,7 @@
 # Example of a chained workflow. (Only complete the following if the prior succeeded)
 name: Chained Workflow
 
-run-name: Following up on ${{ workflow.name }}
+run-name: Following up.
 
 on:
   workflow_run:
