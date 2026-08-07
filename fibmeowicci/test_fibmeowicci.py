@@ -1,7 +1,8 @@
+import sys
+from io import StringIO
+
 from fibmeowicci import meow
 
-from io import StringIO
-import sys
 
 def test_meow():
     captured = StringIO()
