@@ -6,6 +6,7 @@ def meow(limit: int | None = None):
     while True:
         if limit and fibb >= limit:
             break
-        print(" ".join(["meow"] * fibb))
+        meows = " ".join(["meow"] * fibb).capitalize()
+        print(f"{meows}.")
         fibb, follow = follow, fibb + follow
         sleep(fibb * 0.10)
