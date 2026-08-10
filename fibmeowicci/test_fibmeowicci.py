@@ -10,4 +10,4 @@ def test_meow():
     sys.stdout = captured
     meow(limit=5)
     sys.stdout = prev
-    assert "\nmeow\nmeow\nmeow meow\nmeow meow meow\n" == captured.getvalue()
+    assert "Meow.\n\nMeow.\n\nMeow meow.\n\nMeow meow meow.\n\n" == captured.getvalue()
