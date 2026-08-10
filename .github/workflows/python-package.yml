@@ -53,6 +53,7 @@ jobs:
   # Owner: you (or your org)
   # Repository name: the github repo name (e.g. `action_playground`)
   # Workflow name: name of this workflow (`python-package.yml`)
+  # Environment: pypi-publish
 
   pypi-publish:
     needs:
