@@ -5,15 +5,18 @@ name: Python Checks
 run-name: Checks
 
 on:
+  # Every push gets a check.
   push
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     strategy:
+      # Don't fail on first error.
       fail-fast: false
       matrix:
         # PYTHON_VER
+        # List of python versions we are valid for.
         python-version: ["3.10", "3.11", "3.13", "3.14"]
     steps:
       # There's no concept of `@stable` or `:lts` so pick a version
@@ -27,11 +30,13 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install ".[dev]"
       - name: Lint
+        # First actual job. Run the formatting gauntlet
         run: |
           isort --sp pyproject.toml -c fibmeowicci
           black --quiet --diff --config pyproject.toml --check fibmeowicci
           bandit --quiet -c pyproject.toml fibmeowicci
-      - name: test
+      - name: Test
+        # Do a quick test.
         run: |
           pytest fibmeowicci
 

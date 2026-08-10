@@ -8,6 +8,7 @@ run-name: Following up.
 on:
   workflow_run:
     workflows:
+      # This dependency is currently inactive.
       - 'Github Actions Demo'
     types:
       - completed
