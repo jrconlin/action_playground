@@ -1,9 +1,13 @@
+# Package up things and ship them to pypi
 name: Package and Publish
 
 run-name: Package and Publish
 
 on:
   workflow_run:
+    # Only fire on main if the `Python Checks` workflow is
+    # complete. We could also add a complex `if:`, but this
+    # is more straight-forward
     workflows:
       - 'Python Checks'
     types:
@@ -12,8 +16,10 @@ on:
       - main
 
 jobs:
+  # Build the release
   release-build:
     runs-on: ubuntu-latest
+    # Only do this job if the dependent workflow succeeded
     if: ${{ github.event.workflow_run.conclusion == 'success'}}
     steps:
       - uses: actions/checkout@v7
@@ -23,14 +29,30 @@ jobs:
       - name: Build release distributions
         run: |
           python -m pip install --upgrade pip
-          python -m pip install Build
-          python -m Build
+          python -m pip install build
+          python -m build
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4
         with:
           name: release-dists
           path: dist/
+
+  # And publish to pypi. Since this depends on the prior job
+  # (which depends on the `Checks` workflow succeeding) we
+  # only publish on success.
+  #
+  # Note: This needs the Trusted Publisher stuff active and
+  # correct on pypi, thus why this whole thing exists, since
+  # that's a little funky to get set up.
+  # AS I UNDERSTAND: you need to go to the
+  # "Publishing" section of your project
+  # (e.g. https://pypi.org/manage/project/{PROJECT_NAME}/settings/publishing/)
+  # and set the Add a new publisher for:
+  # GitHub:
+  # Owner: you (or your org)
+  # Repository name: the github repo name (e.g. `action_playground`)
+  # Workflow name: name of this workflow (`python-package.yml`)
 
   pypi-publish:
     needs:
